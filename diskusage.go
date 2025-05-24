@@ -1,3 +1,4 @@
+//go:build !windows
 // +build !windows
 
 package du
@@ -20,12 +21,12 @@ func NewDiskUsage(volumePath string) *DiskUsage {
 
 // Free returns total free bytes on file system
 func (du *DiskUsage) Free() uint64 {
-	return du.stat.Bfree * uint64(du.stat.Bsize)
+	return uint64(du.stat.Bfree) * uint64(du.stat.Bsize)
 }
 
 // Available return total available bytes on file system to an unprivileged user
 func (du *DiskUsage) Available() uint64 {
-	return du.stat.Bavail * uint64(du.stat.Bsize)
+	return uint64(du.stat.Bavail) * uint64(du.stat.Bsize)
 }
 
 // Size returns total size of the file system
